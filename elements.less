@@ -1,58 +1,65 @@
 /*---------------------------------------------------
-    LESS Elements 0.6
+	LESS Elements 0.7
   ---------------------------------------------------
-    A set of useful LESS mixins by Dmitry Fadeyev
-    Special thanks for mixin suggestions to:
-      Kris Van Herzeele,
-      Benoit Adam,
-      Portenart Emile-Victor,
-      Ryan Faerman
-
-    More info at: http://lesselements.com
+	A set of useful LESS mixins by Dmitry Fadeyev
+	Special thanks for mixin suggestions to:
+	  Kris Van Herzeele,
+	  Benoit Adam,
+	  Portenart Emile-Victor,
+	  Ryan Faerman
+	More info at: http://lesselements.com
 -----------------------------------------------------*/
 
-.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
-  background: @color;
-  background: -webkit-gradient(linear,
-                               left bottom,
-                               left top,
-                               color-stop(0, @start),
-                               color-stop(1, @stop));
-  background: -ms-linear-gradient(bottom,
-                                  @start,
-                                  @stop);
-  background: -moz-linear-gradient(center bottom,
-                                   @start 0%,
-                                   @stop 100%);
+.gradient(@start: #EEEEEE, @stop: #FFFFFF) {
+	background: mix(@start, @stop, 50%);
+	background: -webkit-gradient(linear,
+								 left top,
+								 left bottom,
+								 color-stop(1%,@start), color-stop(100%,@stop));
+	background: -webkit-linear-gradient(top,
+										@start 1%,
+										@stop 100%);
+	background: -ms-linear-gradient(bottom,
+									@start,
+									@stop);
+	background: -moz-linear-gradient(center bottom,
+									 @start 0%,
+									 @stop 100%);
+	background: -o-linear-gradient(top,
+								   @start 1%,
+								   @stop 100%);
+	background: linear-gradient(to bottom,  @start 1%,@stop  100%);
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@start, endColorstr=@stop,GradientType=0);
+	/* IE9 SVG, needs conditional override as filter:none; */
+}
+.svg-gradient(@start: #EEEEEE, @stop: #FFFFFF, @svgData: 'PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+') {
+  background: @start;
+  background: url("data:image/svg+xml;base64,@{svgData}");
+
+  .gradient(@start, @stop);
 }
 .bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
   background: @color;
   background: -webkit-gradient(linear,
-                               left bottom,
-                               left top,
-                               color-stop(0, rgb(@start,@start,@start)),
-                               color-stop(1, rgb(@stop,@stop,@stop)));
+							   left bottom,
+							   left top,
+							   color-stop(0, rgb(@start,@start,@start)),
+							   color-stop(1, rgb(@stop,@stop,@stop)));
   background: -ms-linear-gradient(bottom,
-                                  rgb(@start,@start,@start) 0%,
-                                  rgb(@start,@start,@start) 100%);
+								  rgb(@start,@start,@start) 0%,
+								  rgb(@start,@start,@start) 100%);
   background: -moz-linear-gradient(center bottom,
-                                   rgb(@start,@start,@start) 0%,
-                                   rgb(@stop,@stop,@stop) 100%);
+								   rgb(@start,@start,@start) 0%,
+								   rgb(@stop,@stop,@stop) 100%);
 }
-.svg-gradient(@start: #EEE, @stop: #FFF, @svgData: '') {
-  background: @start;
-  background: url("data:image/svg+xml;base64,@{svgData}");
-  background: -webkit-gradient(linear,
-                               left bottom,
-                               left top,
-                               color-stop(0, @start),
-                               color-stop(1, @stop));
-  background: -ms-linear-gradient(bottom,
-                                  @start,
-                                  @stop);
-  background: -moz-linear-gradient(center bottom,
-                                   @start 0%,
-                                   @stop 100%);
+.text-gradient(@start: #EEE, @stop: #FFF, @startPoint: 'left top', @endPoint: 'left bottom') {
+	color: mix(@start, @stop, 50%);
+	background: -webkit-linear-gradient(top,
+										@start 1%,
+										@stop 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 .bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
   border-top: solid 1px @top-color;
